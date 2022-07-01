@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ContentService/ContentService.iml" filepath="$PROJECT_DIR$/ContentService/ContentService.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Hotel/HotelSearchService.iml" filepath="$PROJECT_DIR$/Hotel/HotelSearchService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/content-service/ContentService.iml" filepath="$PROJECT_DIR$/content-service/ContentService.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/HotelsDemoApp.iml" filepath="$PROJECT_DIR$/.idea/HotelsDemoApp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PriceDisplayService/PriceDisplayService.iml" filepath="$PROJECT_DIR$/PriceDisplayService/PriceDisplayService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hotel-search-service/hotel-search-service.iml" filepath="$PROJECT_DIR$/hotel-search-service/hotel-search-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/price-display-service/price-display-service.iml" filepath="$PROJECT_DIR$/price-display-service/price-display-service.iml" />
     </modules>
   </component>
 </project>

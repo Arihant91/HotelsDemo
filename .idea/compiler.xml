@@ -2,27 +2,30 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="HotelSearchService" />
-        <module name="PriceDisplayService" />
+        <module name="price-display-service" />
+        <module name="hotel-search-service" />
         <module name="ContentService" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="content-service" target="11" />
       <module name="ContentService" target="11" />
+      <module name="hotel-search-service" target="11" />
       <module name="HotelsDemoApp" target="11" />
-      <module name="HotelSearchService" target="11" />
-      <module name="PriceDisplayService" target="11" />
+      <module name="price-display-service" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ContentService" options="-parameters" />
-      <module name="HotelSearchService" options="-parameters" />
-      <module name="PriceDisplayService" options="-parameters" />
+      <module name="content-service" options="-parameters" />
+      <module name="hotel-search-service" options="-parameters" />
+      <module name="price-display-service" options="-parameters" />
     </option>
   </component>
 </project>
