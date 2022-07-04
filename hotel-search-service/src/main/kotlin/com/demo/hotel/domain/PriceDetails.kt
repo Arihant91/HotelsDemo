@@ -1,4 +1,4 @@
 package com.demo.hotel.domain
 
-class PriceDetails(val nightly: Int, val total: Int) {
+data class PriceDetails(val nightly: Int, val total: Int) {
 }

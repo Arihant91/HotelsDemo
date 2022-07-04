@@ -1,16 +1,14 @@
 package com.demo.hotel.domain
 
-class HotelCardDetails(
-    val id: Int,
-    val hotelName: String,
-    val location: String,
-    val amenities: List<String>,
-    val description: String,
-    val rating: Int,
+data class HotelCardDetails(
+    val id: Int = 0,
+    val hotelName: String = "",
+    val location: String = "",
+    val amenities: List<String> = listOf(""),
+    val description: String = "",
+    val rating: Int = 0,
     val priceDetails: PriceDetails? = null
 ) {
-
-    constructor() : this(0,"", "", listOf(""), "", 6)
 
 
 }

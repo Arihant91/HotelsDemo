@@ -16,11 +16,11 @@ import java.nio.charset.StandardCharsets
 
 class HotelCardService {
 
-    suspend fun getListOfHotelCardDetails(
+    fun getListOfHotelCardDetails(
         location: String,
         checkInDate: String,
         checkOutDate: String
-    ): List<HotelCardDetails> {
+    ): List<HotelCardDetails?> {
 
         val hMap: MultiValueMap<String, String> =
             LinkedMultiValueMap()
@@ -42,26 +42,23 @@ class HotelCardService {
             ).accept(MediaType.APPLICATION_JSON).acceptCharset(
                 StandardCharsets.UTF_8
             )
-        println(uri.toUri())
 
         var response =
             client.retrieve().toEntity(HotelCardDetails().javaClass).block()
 
-//        var response = client.retrieve().awaitBody<HotelCardDetails.>()
+            println(response!!.body)
 
-        if (response != null) {
-            println(response.body?.hotelName)
-        }
+        return listOf(response!!.body)
 
-        return listOf(
-            HotelCardDetails(0,
-                "budapestHotel",
-                "Budapest",
-                listOf("football"),
-                "nice place",
-                5,
-                PriceDetails(500, 600)
-            )
-        )
+//        return listOf(
+//            HotelCardDetails(0,
+//                "budapestHotel",
+//                "Budapest",
+//                listOf("football"),
+//                "nice place",
+//                5,
+//                PriceDetails(500, 600)
+//            )
+//        )
     }
 }

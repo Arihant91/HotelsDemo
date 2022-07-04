@@ -14,7 +14,7 @@ class GetHotelStaticDescription {
 
     @GetMapping("/getListOfHotelsDescriptions")
     fun getListOfHotelStaticDescriptions() : HotelStaticDescription{
-
-        return  HotelStaticDescription()
+        val hotelStaticDescription : HotelStaticDescription = HotelStaticDescription()
+        return  hotelStaticDescription
     }
 }

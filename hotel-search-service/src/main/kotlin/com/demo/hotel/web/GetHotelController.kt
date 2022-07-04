@@ -16,7 +16,7 @@ class GetHotelController {
         @RequestParam("location") location: String,
         @RequestParam("checkInDate") checkInDate: String,
         @RequestParam("checkOutDate") checkOutDate: String
-    ): List<HotelCardDetails> {
+    ): List<HotelCardDetails?> {
         return hotelCardService.getListOfHotelCardDetails(location, checkInDate, checkOutDate)
     }
 

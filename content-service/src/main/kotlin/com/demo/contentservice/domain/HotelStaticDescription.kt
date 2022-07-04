@@ -9,18 +9,18 @@ import javax.persistence.Id
 const val MAGICNUMBER = 5
 
 @Entity
-class HotelStaticDescription(
+data class HotelStaticDescription(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Int,
-    val hotelName: String,
-    val location: String,
+    val id: Int = 0,
+    val hotelName: String = "budapest grand",
+    val location: String = "Budapest",
     @ElementCollection
-    val amenities: List<String>,
-    val description: String,
-    val rating: Int
+    val amenities: List<String> = listOf("football", "sauna"),
+    val description: String = "nice",
+    val rating: Int = 5
 ) {
-    constructor() : this(1, "", "", listOf(""), "", MAGICNUMBER)
+
 
 
 }
