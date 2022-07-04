@@ -12,13 +12,11 @@ class GetHotelController {
     val hotelCardService: HotelCardService = HotelCardService()
 
     @GetMapping("/getList")
-    fun getListOfHotelCards(
+     fun getListOfHotelCards(
         @RequestParam("location") location: String,
         @RequestParam("checkInDate") checkInDate: String,
         @RequestParam("checkOutDate") checkOutDate: String
     ): List<HotelCardDetails> {
-
-        println(location + checkInDate + checkOutDate)
         return hotelCardService.getListOfHotelCardDetails(location, checkInDate, checkOutDate)
     }
 

@@ -13,8 +13,8 @@ class GetHotelStaticDescription {
     lateinit var hotelStaticService: HotelStaticService;
 
     @GetMapping("/getListOfHotelsDescriptions")
-    fun getListOfHotelStaticDescriptions() : HotelStaticDescription?{
+    fun getListOfHotelStaticDescriptions() : HotelStaticDescription{
 
-        return  null
+        return  HotelStaticDescription()
     }
 }
