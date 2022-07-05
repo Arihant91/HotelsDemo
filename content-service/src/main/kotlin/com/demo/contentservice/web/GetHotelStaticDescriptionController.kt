@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RestController
 class GetHotelStaticDescriptionController {
 
     @Autowired
-    lateinit var repository: HotelStaticDescriptionRepository
-
-    @Autowired
     lateinit var hotelStaticService: HotelStaticService
 
     @Autowired
@@ -39,67 +36,13 @@ class GetHotelStaticDescriptionController {
 
     @GetMapping("/save")
     fun save(): String {
-        repository.saveAll(
-            listOf(
-                HotelStaticDescription(
-                    0,
-                    "Grand Budapest hotel",
-                    "Budapest",
-                    listOf("football", "sauna"),
-                    "nice",
-                    5
-                ),
-                HotelStaticDescription(
-                    0,
-                    "Hilton",
-                    "Budapest",
-                    listOf("football", "sauna"),
-                    "nice",
-                    5
-                ),
-                HotelStaticDescription(
-                    0,
-                    "Antonia",
-                    "Belgrad",
-                    listOf("football", "sauna"),
-                    "nice",
-                    5
-                ),
-                HotelStaticDescription(
-                    0,
-                    "Beverly",
-                    "Budapest",
-                    listOf("football", "sauna"),
-                    "nice",
-                    5
-                ),
-                HotelStaticDescription(
-                    0,
-                    "TiszaHotel",
-                    "Szeged",
-                    listOf("football", "sauna"),
-                    "nice",
-                    4
-                ),
-                HotelStaticDescription(
-                    0,
-                    "Hansa",
-                    "Frankfurt",
-                    listOf("football", "sauna"),
-                    "nice",
-                    5
-                )
-            )
-        )
-
+        hotelStaticService.saveDummyData()
         return "Done"
     }
 
 
     @GetMapping("/returnAll")
     fun getTestData(): Iterable<HotelStaticDescription> {
-        var rep = repository.findAll()
-        return rep
-
+        return hotelStaticService.getTestData()
     }
 }

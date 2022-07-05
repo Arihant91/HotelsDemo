@@ -17,4 +17,9 @@ class GetPriceController {
     fun getPrice(@RequestParam("id") location: String): String{
         return "15"
     }
+
+    @GetMapping("/save")
+    fun save(@RequestParam("id") location: String): String{
+        return "15"
+    }
 }

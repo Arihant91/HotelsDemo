@@ -46,19 +46,6 @@ class HotelCardService {
         var response =
             client.retrieve().toEntity(HotelCardDetails().javaClass).block()
 
-            println(response!!.body)
-
         return listOf(response!!.body)
-
-//        return listOf(
-//            HotelCardDetails(0,
-//                "budapestHotel",
-//                "Budapest",
-//                listOf("football"),
-//                "nice place",
-//                5,
-//                PriceDetails(500, 600)
-//            )
-//        )
     }
 }
