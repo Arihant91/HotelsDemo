@@ -1,4 +1,4 @@
-package com.demo.pricedisplayservice
+package com.demo.pricedisplay
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

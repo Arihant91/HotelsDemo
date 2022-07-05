@@ -1,4 +1,4 @@
-package com.demo.contentservice.domain
+package com.demo.contentservice.model
 
 import javax.persistence.ElementCollection
 import javax.persistence.Entity
