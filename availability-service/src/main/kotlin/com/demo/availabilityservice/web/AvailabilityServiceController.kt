@@ -14,7 +14,7 @@ class AvailabilityServiceController {
     @Autowired
     lateinit var availabilityService: AvailabilityService
 
-    @GetMapping("/searchbytime")
+    @GetMapping("/seachByTime")
     fun searchByTime(
         @RequestParam("location") location: String,
         @RequestParam("checkInDate") checkInDate: String,

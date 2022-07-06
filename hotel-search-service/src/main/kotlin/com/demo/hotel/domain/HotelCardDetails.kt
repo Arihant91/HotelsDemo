@@ -7,7 +7,7 @@ data class HotelCardDetails(
     val amenities: List<String> = listOf(""),
     val description: String = "",
     val rating: Int = 0,
-    val priceDetails: PriceDetails? = null
+    var priceDetails: PriceDetails? = null
 ) {
 
 

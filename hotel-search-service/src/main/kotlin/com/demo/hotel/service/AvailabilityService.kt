@@ -4,6 +4,7 @@ import com.demo.hotel.domain.HotelCardDetails
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import org.springframework.web.reactive.function.client.WebClient
@@ -11,7 +12,7 @@ import org.springframework.web.util.UriComponents
 import org.springframework.web.util.UriComponentsBuilder
 import java.nio.charset.StandardCharsets
 
-@Component
+@Service
 class AvailabilityService {
 
     fun getAvailableHotelIds(location: String, checkIn: String, checkOut: String): MutableList<Int>? {
@@ -25,7 +26,7 @@ class AvailabilityService {
         val uriComponentsBuilder: UriComponentsBuilder =
             UriComponentsBuilder.newInstance().scheme("http")
                 .host("localhost").port("50050")
-                .path("/searchbytime")
+                .path("/seachByTime")
                 .queryParams(hMap)
         val uri: UriComponents = uriComponentsBuilder.build()
 

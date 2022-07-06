@@ -1,9 +1,7 @@
 package com.demo.contentservice.web
 
-import com.demo.contentservice.domain.HotelStaticDescriptionConverter
 import com.demo.contentservice.domain.WebHotelStaticDescription
 import com.demo.contentservice.model.HotelStaticDescription
-import com.demo.contentservice.repository.HotelStaticDescriptionRepository
 import com.demo.contentservice.service.HotelStaticService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
@@ -16,22 +14,10 @@ class GetHotelStaticDescriptionController {
     @Autowired
     lateinit var hotelStaticService: HotelStaticService
 
-    @Autowired
-    lateinit var hotelStaticDescriptionConverter: HotelStaticDescriptionConverter
+    @GetMapping("/getHotelDescriptions")
+    fun getHotelsByIds(@RequestParam("ids") ids: List<Int>): MutableList<WebHotelStaticDescription> {
 
-    @GetMapping("/getListOfHotelsDescriptions")
-    fun getListOfHotelStaticDescriptions(
-        @RequestParam("location") location: String,
-        @RequestParam("checkInDate") checkInDate: String,
-        @RequestParam("checkOutDate") checkOutDate: String
-    ): WebHotelStaticDescription {
-
-        //dummy data
-        val hotelStaticDescription: HotelStaticDescription =
-            HotelStaticDescription()
-        return hotelStaticDescriptionConverter.converter(
-            hotelStaticDescription
-        )
+        return hotelStaticService.getHotelsById(ids)
     }
 
     @GetMapping("/save")

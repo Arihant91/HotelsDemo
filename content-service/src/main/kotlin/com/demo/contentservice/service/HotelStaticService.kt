@@ -1,5 +1,7 @@
 package com.demo.contentservice.service
 
+import com.demo.contentservice.domain.HotelStaticDescriptionConverter
+import com.demo.contentservice.domain.WebHotelStaticDescription
 import com.demo.contentservice.model.HotelStaticDescription
 import com.demo.contentservice.repository.HotelStaticDescriptionRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -11,6 +13,19 @@ class HotelStaticService {
 
     @Autowired
     lateinit var repository: HotelStaticDescriptionRepository
+
+    @Autowired
+    lateinit var webConverter: HotelStaticDescriptionConverter
+
+    fun getHotelsById(ids: List<Int>): MutableList<WebHotelStaticDescription>{
+        val listOfHotels: Iterable<HotelStaticDescription> = repository.findAllById(ids)
+        val listOfWebHotels : MutableList<WebHotelStaticDescription> = mutableListOf()
+        for(hotel in listOfHotels){
+            listOfWebHotels.add(webConverter.converter(hotel))
+        }
+
+        return listOfWebHotels
+    }
 
     fun saveDummyData(){
         repository.saveAll(

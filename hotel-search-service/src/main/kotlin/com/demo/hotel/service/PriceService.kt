@@ -1,33 +1,28 @@
 package com.demo.hotel.service
 
 import com.demo.hotel.domain.HotelCardDetails
+import com.demo.hotel.domain.PriceDetails
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
-import org.springframework.util.LinkedMultiValueMap
-import org.springframework.util.MultiValueMap
+import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.util.UriComponents
 import org.springframework.web.util.UriComponentsBuilder
 import java.nio.charset.StandardCharsets
 
+@Service
 class PriceService {
 
     fun getPrices(
-        hotelid: String,
-        checkInDate: String,
-        checkOutDate: String
-    ) {
+        listOfIds:
+        MutableList<Int>?
+    ): MutableList<PriceDetails>?  {
 
-        val hMap: MultiValueMap<String, String> =
-            LinkedMultiValueMap()
-        hMap.add("hotelid", hotelid)
-        hMap.add("checkInDate", checkInDate)
-        hMap.add("checkOutDate", checkOutDate)
         val uriComponentsBuilder: UriComponentsBuilder =
             UriComponentsBuilder.newInstance().scheme("http")
                 .host("localhost").port("50052")
                 .path("/getPrices")
-                .queryParams(hMap)
+                .queryParam("ids", listOfIds)
         val uri: UriComponents = uriComponentsBuilder.build()
 
         val client = WebClient.create().get()
@@ -40,7 +35,10 @@ class PriceService {
             )
 
         var response =
-            client.retrieve().toEntity(HotelCardDetails().javaClass).block()
+            client.retrieve().toEntity(mutableListOf<PriceDetails>().javaClass)
+                .block()!!.body
+
+        return response
     }
 
 

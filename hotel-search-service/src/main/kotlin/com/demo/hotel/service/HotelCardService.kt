@@ -2,37 +2,46 @@ package com.demo.hotel.service
 
 import com.demo.hotel.domain.HotelCardDetails
 import com.demo.hotel.domain.PriceDetails
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
-import org.springframework.stereotype.Component
-import org.springframework.util.LinkedMultiValueMap
-import org.springframework.util.MultiValueMap
+import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
-import org.springframework.web.reactive.function.client.awaitBody
 import org.springframework.web.util.UriComponents
 import org.springframework.web.util.UriComponentsBuilder
 import java.nio.charset.StandardCharsets
 
-@Component
+@Service
 class HotelCardService {
+
+    @Autowired
+    lateinit var availabilityService: AvailabilityService
+
+    @Autowired
+    lateinit var priceService: PriceService
+
 
     fun getListOfHotelCardDetails(
         location: String,
         checkInDate: String,
         checkOutDate: String
-    ): List<HotelCardDetails?> {
+    ): MutableList<HotelCardDetails>? {
 
-        val hMap: MultiValueMap<String, String> =
-            LinkedMultiValueMap()
-        hMap.add("location", location)
-        hMap.add("checkInDate", checkInDate)
-        hMap.add("checkOutDate", checkOutDate)
+        val listOfIds: MutableList<Int>? =
+            availabilityService.getAvailableHotelIds(
+                location,
+                checkInDate,
+                checkOutDate
+            )
+
+        val listOfPriceDetails: MutableList<PriceDetails>? =
+            priceService.getPrices(listOfIds)
+
         val uriComponentsBuilder: UriComponentsBuilder =
             UriComponentsBuilder.newInstance().scheme("http")
                 .host("localhost").port("50051")
-                .path("/getListOfHotelsDescriptions")
-                .queryParams(hMap)
+                .path("/getHotelDescriptions")
+                .queryParam("ids", listOfIds)
         val uri: UriComponents = uriComponentsBuilder.build()
 
         val client = WebClient.create().get()
@@ -45,8 +54,10 @@ class HotelCardService {
             )
 
         var response =
-            client.retrieve().toEntity(HotelCardDetails().javaClass).block()
+            client.retrieve()
+                .toEntity(mutableListOf<HotelCardDetails>().javaClass).block()!!.body
 
-        return listOf(response!!.body)
+
+        return response
     }
 }

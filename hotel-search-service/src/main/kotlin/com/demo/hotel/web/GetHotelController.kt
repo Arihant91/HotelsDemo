@@ -14,24 +14,25 @@ class GetHotelController {
     @Autowired
     lateinit var hotelCardService: HotelCardService
 
-    @Autowired
-    lateinit var availabilityService: AvailabilityService
 
-    @GetMapping("/gethotelids")
-    fun getHotelIds(  @RequestParam("location") location: String,
-                      @RequestParam("checkInDate") checkInDate: String,
-                      @RequestParam("checkOutDate") checkOutDate: String): MutableList<Int>?{
-     return availabilityService.getAvailableHotelIds(location, checkInDate, checkOutDate)
-    }
 
+//    @GetMapping("/getList")
+//     fun getListOfHotelCards(
+//        @RequestParam("location") location: String,
+//        @RequestParam("checkInDate") checkInDate: String,
+//        @RequestParam("checkOutDate") checkOutDate: String
+//    ): MutableList<HotelCardDetails>?{
+//        return hotelCardService.getListOfHotelCardDetails(location, checkInDate, checkOutDate)
+//    }
 
     @GetMapping("/getList")
-     fun getListOfHotelCards(
+    fun getListOfHotelCards(
         @RequestParam("location") location: String,
         @RequestParam("checkInDate") checkInDate: String,
         @RequestParam("checkOutDate") checkOutDate: String
-    ): List<HotelCardDetails?> {
-        return hotelCardService.getListOfHotelCardDetails(location, checkInDate, checkOutDate)
+    ): Any{
+
+        return  hotelCardService.getListOfHotelCardDetails(location, checkInDate, checkOutDate)!!
     }
 
 

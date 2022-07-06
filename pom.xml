@@ -19,7 +19,7 @@
     <modules>
         <module>content-service</module>
         <module>hotel-search-service</module>
-        <module>price-display-service</module>
+        <module>price-details-service</module>
         <module>availability-service</module>
     </modules>
 
