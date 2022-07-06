@@ -1,37 +1,31 @@
 package com.demo.hotel.service
 
 import com.demo.hotel.domain.HotelCardDetails
-import com.demo.hotel.domain.PriceDetails
 import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import org.springframework.web.reactive.function.client.WebClient
-import org.springframework.web.reactive.function.client.awaitBody
 import org.springframework.web.util.UriComponents
 import org.springframework.web.util.UriComponentsBuilder
 import java.nio.charset.StandardCharsets
 
 @Component
-class HotelCardService {
+class AvailabilityService {
 
-    fun getListOfHotelCardDetails(
-        location: String,
-        checkInDate: String,
-        checkOutDate: String
-    ): List<HotelCardDetails?> {
+    fun getAvailableHotelIds(location: String, checkIn: String, checkOut: String): MutableList<Int>? {
 
         val hMap: MultiValueMap<String, String> =
             LinkedMultiValueMap()
         hMap.add("location", location)
-        hMap.add("checkInDate", checkInDate)
-        hMap.add("checkOutDate", checkOutDate)
+        hMap.add("checkInDate", checkIn)
+        hMap.add("checkOutDate", checkOut)
+
         val uriComponentsBuilder: UriComponentsBuilder =
             UriComponentsBuilder.newInstance().scheme("http")
-                .host("localhost").port("50051")
-                .path("/getListOfHotelsDescriptions")
+                .host("localhost").port("50050")
+                .path("/searchbytime")
                 .queryParams(hMap)
         val uri: UriComponents = uriComponentsBuilder.build()
 
@@ -45,8 +39,10 @@ class HotelCardService {
             )
 
         var response =
-            client.retrieve().toEntity(HotelCardDetails().javaClass).block()
+            client.retrieve().toEntity(mutableListOf<Int>().javaClass).block()!!.body
 
-        return listOf(response!!.body)
+        return response
     }
+
+
 }

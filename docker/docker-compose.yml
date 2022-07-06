@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  db-availability-service:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "50070:5432"
+  db-content-service:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "50071:5432"
+  db-price-display-service:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "50072:5432"

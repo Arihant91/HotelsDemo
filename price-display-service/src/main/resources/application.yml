@@ -1,12 +1,12 @@
 server:
-  port: 50051
+  port: 50052
 spring:
   jpa:
     hibernate:
       ddl-auto: create
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    url: "jdbc:postgresql://localhost:50071/postgres"
+    url: "jdbc:postgresql://localhost:50072/postgres"
     username: postgres
     password: admin
 

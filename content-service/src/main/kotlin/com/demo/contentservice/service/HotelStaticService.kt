@@ -62,6 +62,14 @@ class HotelStaticService {
                     listOf("football", "sauna"),
                     "nice",
                     5
+                ),
+                HotelStaticDescription(
+                    0,
+                    "Black Lagoon",
+                    "Taiwan",
+                    listOf("football", "sauna"),
+                    "nice",
+                    5
                 )
             )
         )
