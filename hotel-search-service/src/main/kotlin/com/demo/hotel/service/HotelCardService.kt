@@ -2,6 +2,8 @@ package com.demo.hotel.service
 
 import com.demo.hotel.domain.HotelCardDetails
 import com.demo.hotel.domain.PriceDetails
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.convertValue
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
@@ -25,7 +27,7 @@ class HotelCardService {
         location: String,
         checkInDate: String,
         checkOutDate: String
-    ): MutableList<HotelCardDetails>? {
+    ): List<HotelCardDetails>? {
 
         val listOfIds: MutableList<Int>? =
             availabilityService.getAvailableHotelIds(
@@ -58,24 +60,39 @@ class HotelCardService {
                 .toEntity(mutableListOf<HotelCardDetails>().javaClass)
                 .block()!!.body
 
-
-
-
-        return listOfHotelStaticCardDetails
+        return addPriceDetailsToHotelCards(
+            listOfHotelStaticCardDetails,
+            listOfPriceDetails
+        )
     }
 
     private fun addPriceDetailsToHotelCards(
-        listOfHotelCardDetails: MutableList<HotelCardDetails>?,
+        listOfHotelStaticCardDetails: MutableList<HotelCardDetails>?,
         listOfPriceDetails: MutableList<PriceDetails>?
-    ) {
-        for (i in 1..listOfHotelCardDetails!!.size) {
-            if (listOfHotelCardDetails != null && listOfPriceDetails != null) {
-                listOfHotelCardDetails[i].priceDetails =
-                    listOfPriceDetails[i]
+    ): MutableList<HotelCardDetails> {
+
+        val listOfHotelCardDetails: MutableList<HotelCardDetails> =
+            mutableListOf()
+        val objectMapper: ObjectMapper =  ObjectMapper()
+        val listOfHotelStaticCardDetailsConverted : MutableList<HotelCardDetails> = objectMapper.convertValue<MutableList<HotelCardDetails>>(listOfHotelStaticCardDetails!!)
+        val listOfPriceDetailsConverted : MutableList<PriceDetails> = objectMapper.convertValue<MutableList<PriceDetails>>(listOfPriceDetails!!)
+        for (i in 0 until listOfHotelStaticCardDetails!!.size) {
+            if (listOfHotelStaticCardDetailsConverted != null && listOfPriceDetails != null) {
+                listOfHotelCardDetails.add(
+                    HotelCardDetails(
+                        listOfHotelStaticCardDetailsConverted[i].id,
+                        listOfHotelStaticCardDetailsConverted[i].hotelName,
+                        listOfHotelStaticCardDetailsConverted[i].location,
+                        listOfHotelStaticCardDetailsConverted[i].amenities,
+                        listOfHotelStaticCardDetailsConverted[i].description,
+                        listOfHotelStaticCardDetailsConverted[i].rating,
+                        PriceDetails(listOfPriceDetailsConverted[i].id, listOfPriceDetailsConverted[i].nightly, listOfPriceDetailsConverted[i].total)
+                    )
+                )
             }
         }
-
-
+        println(listOfHotelCardDetails)
+        return listOfHotelCardDetails
 
     }
 }

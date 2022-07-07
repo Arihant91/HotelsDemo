@@ -4,6 +4,8 @@ import com.demo.hotel.domain.HotelCardDetails
 import com.demo.hotel.service.AvailabilityService
 import com.demo.hotel.service.HotelCardService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -31,8 +33,9 @@ class GetHotelController {
         @RequestParam("checkInDate") checkInDate: String,
         @RequestParam("checkOutDate") checkOutDate: String
     ): Any{
-
-        return  hotelCardService.getListOfHotelCardDetails(location, checkInDate, checkOutDate)!!
+        //ResponseEntity<List<HotelCardDetails>>
+        val respone = hotelCardService.getListOfHotelCardDetails(location, checkInDate, checkOutDate)
+        return ResponseEntity<List<HotelCardDetails>>(respone, HttpStatus.OK)
     }
 
 

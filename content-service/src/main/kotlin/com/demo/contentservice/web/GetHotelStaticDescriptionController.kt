@@ -15,7 +15,7 @@ class GetHotelStaticDescriptionController {
     lateinit var hotelStaticService: HotelStaticService
 
     @GetMapping("/getHotelDescriptions")
-    fun getHotelsByIds(@RequestParam("ids") ids: List<Int>): MutableList<WebHotelStaticDescription> {
+    fun getHotelsByIds(@RequestParam("ids") ids: List<Int>): Iterable<WebHotelStaticDescription> {
 
         return hotelStaticService.getHotelsById(ids)
     }
