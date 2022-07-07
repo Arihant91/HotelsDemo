@@ -53,11 +53,29 @@ class HotelCardService {
                 StandardCharsets.UTF_8
             )
 
-        var response =
+        val listOfHotelStaticCardDetails =
             client.retrieve()
-                .toEntity(mutableListOf<HotelCardDetails>().javaClass).block()!!.body
+                .toEntity(mutableListOf<HotelCardDetails>().javaClass)
+                .block()!!.body
 
 
-        return response
+
+
+        return listOfHotelStaticCardDetails
+    }
+
+    private fun addPriceDetailsToHotelCards(
+        listOfHotelCardDetails: MutableList<HotelCardDetails>?,
+        listOfPriceDetails: MutableList<PriceDetails>?
+    ) {
+        for (i in 1..listOfHotelCardDetails!!.size) {
+            if (listOfHotelCardDetails != null && listOfPriceDetails != null) {
+                listOfHotelCardDetails[i].priceDetails =
+                    listOfPriceDetails[i]
+            }
+        }
+
+
+
     }
 }
