@@ -1,9 +1,7 @@
 package com.demo.hotel.service
 
-import com.demo.hotel.domain.HotelCardDetails
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
-import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
@@ -15,7 +13,7 @@ import java.nio.charset.StandardCharsets
 @Service
 class AvailabilityService {
 
-    fun getAvailableHotelIds(location: String, checkIn: String, checkOut: String): MutableList<Int>? {
+    fun getAvailableHotelIds(location: String, checkIn: String, checkOut: String): MutableList<Int> {
 
         val hMap: MultiValueMap<String, String> =
             LinkedMultiValueMap()
@@ -42,7 +40,7 @@ class AvailabilityService {
         var response =
             client.retrieve().toEntity(mutableListOf<Int>().javaClass).block()!!.body
 
-        return response
+        return response!!
     }
 
 
