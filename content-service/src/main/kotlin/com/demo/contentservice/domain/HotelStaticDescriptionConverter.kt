@@ -13,7 +13,7 @@ class HotelStaticDescriptionConverter {
             hotelStaticDescription.location,
             hotelStaticDescription.amenities,
             hotelStaticDescription.description,
-            hotelStaticDescription.rating
+            hotelStaticDescription.rating,
         )
     }
 }
