@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.convertValue
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @Service
@@ -40,13 +39,17 @@ class HotelSearchService {
         val listOfHotelStaticCardDetails: MutableList<HotelCardDetails> =
             hotelCardService.getListOfHotelCardDetails(listOfIds)
 
-        return  addPriceDetailsToHotelCards(listOfHotelStaticCardDetails, listOfPriceDetails)
+        return addPriceDetailsToHotelCards(
+            listOfHotelStaticCardDetails,
+            listOfPriceDetails
+        )
     }
 
-    fun getListOfHotelCardDetailsAsync(location: String,
-                                  checkInDate: String,
-                                  checkOutDate: String
-    ): List<HotelCardDetails>? {
+    fun getListOfHotelCardDetailsAsync(
+        location: String,
+        checkInDate: String,
+        checkOutDate: String
+    ): Mono<List<HotelCardDetails>>? {
         val listOfIds: MutableList<Int> =
             availabilityService.getAvailableHotelIds(
                 location,
@@ -57,17 +60,17 @@ class HotelSearchService {
         val listOfPriceDetails: Mono<MutableList<PriceDetails>> =
             priceService.getPricesAsync(listOfIds)
 
-        listOfPriceDetails.subscribe{ println(it)}
 
-        val listOfHotelStaticCardDetails: MutableList<HotelCardDetails> =
-            hotelCardService.getListOfHotelCardDetailsAsync(listOfIds).block()!!
+        val listOfHotelStaticCardDetails: Mono<MutableList<HotelCardDetails>> =
+            hotelCardService.getListOfHotelCardDetailsAsync(listOfIds)
 
-        return addPriceDetailsToHotelCards(listOfHotelStaticCardDetails, null)
+        return Mono.zip(listOfHotelStaticCardDetails, listOfPriceDetails).map { addPriceDetailsToHotelCards(it.t1, it.t2) }
+
+//        return listOfHotelStaticCardDetails.zipWith(listOfPriceDetails) { resp1, resp2 ->
+//            addPriceDetailsToHotelCards(resp1, resp2)
+//        }
+
     }
-    fun endOfAsync(){
-        println("dickbutt")
-    }
-
 
     private fun addPriceDetailsToHotelCards(
         listOfHotelStaticCardDetails: MutableList<HotelCardDetails>?,

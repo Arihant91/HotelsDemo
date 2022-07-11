@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import reactor.core.publisher.Mono
 
 @RestController
 class GetHotelController {
@@ -15,19 +16,13 @@ class GetHotelController {
     @Autowired
     lateinit var hotelSearchService: HotelSearchService
 
-
-
-
     @GetMapping("/getList")
     fun getListOfHotelCards(
         @RequestParam("location") location: String,
         @RequestParam("checkInDate") checkInDate: String,
         @RequestParam("checkOutDate") checkOutDate: String
-    ): Any{
-        //ResponseEntity<List<HotelCardDetails>>
-        //val respone = hotelSearchService.getListOfHotelCardDetails(location, checkInDate, checkOutDate)
-        val respone = hotelSearchService.getListOfHotelCardDetailsAsync(location, checkInDate, checkOutDate)
-        return ResponseEntity<List<HotelCardDetails>>(respone, HttpStatus.OK)
+    ): Mono<List<HotelCardDetails>>? {
+        return hotelSearchService.getListOfHotelCardDetailsAsync(location, checkInDate, checkOutDate)
     }
 
 
